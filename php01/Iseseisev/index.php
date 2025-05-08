@@ -23,7 +23,7 @@ Harjutus IS  -->
             <nav class="navbar navbar-expand-lg text-secondary">
                 <div class="container-fluid">
 
-                    <a class="navbar-brand p-2" href="#">kaspar.com</a>
+                    <a class="navbar-brand p-2" href="#">Tehvan Mar&puu.com</a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -123,7 +123,7 @@ Harjutus IS  -->
 
     <footer class="bg-dark py-5 mt-5">
         <div class="container text-light text-center">
-            <p>kaspar.com</p>
+            <p>Tehvan Mar&puu.com</p>
         </div>
     </footer>
 
