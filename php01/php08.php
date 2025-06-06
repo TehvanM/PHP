@@ -1,82 +1,123 @@
- <!-- Tehvan Marjapuu 
-Harjutus 8 -->
-
-<!doctype html>
+<!-- Tehvan Marjapuu Harjutus 8 -->
+<!DOCTYPE html>
 <html lang="et">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Harjutus 8</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuupäeva Harjutus</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .season-img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
 <body>
-    <div class="container">
-        <h1>Harjutus 08</h1>
-        <div class="row">
-            <div class="col-md-4">
-                
-                <?php
-
-                echo "<h2>Kuupäev ja kellaaeg</h2>";
-
-                echo date('d.m.Y G:i' , time());
-
-                ?>
-                <br>
-                <h2>vanus</h2>
-                <form>
-                    <div class="mb-3">
-                        <label for="vanus" class="form-label">pane sünnipäev</label>
-                        <input type="number" class="form-control" name="vanus">
+    <div class="container py-4">
+        <header class="text-center mb-4">
+            <h1 class="display-5">Ajaga arvutused</h1>
+            <p class="text-muted">harjutus 8</p>
+        </header>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-light">
+                        <h3 class="h5 mb-0">Käesolev hetk</h3>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-                <?php
-                if (isset($_GET["vanus"])) {
-                    $vanus = $_GET["vanus"];
-                    $aasta = date('Y');
-                    $vanus = $aasta - $vanus;
-                    echo "oled/saad see aasta $vanus";
-                    
-                }
-                ?>
-                <br>
-                <h2>Kooli lõpuni</h2>
-                <?php
-                 $lopp = strtotime("2025-06-14");
-                 $paeva = ($lopp - time()) / (60 * 60 * 24);
-                    echo "kooli lõpuni on jäänud $paeva päeva!";
-                ?>
-                <br>
-                <h2>aastaajad</h2>
-                <?php
+                    <div class="card-body">
+                        <?php
+                        $hetk = date('d.m.Y H:i');
+                        echo "<p class='fs-5'>Täna on: <strong>$hetk</strong></p>";
+                        ?>
+                    </div>
+                </div>
 
-                $aasta = date('m');
+                <div class="card shadow-sm">
+                    <div class="card-header bg-light">
+                        <h3 class="h5 mb-0">Vanus</h3>
+                    </div>
+                    <div class="card-body">
+                        <form class="mb-3">
+                            <div class="mb-3">
+                                <label class="form-label">Sünniaasta</label>
+                                <input type="number" class="form-control" 
+                                       name="synniaasta" 
+                                       placeholder="Sisesta aasta (nt 2005)"
+                                       min="1900" max="<?= date('Y') ?>">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Arvuta vanus</button>
+                        </form>
+                        
+                        <?php
+                        if (isset($_GET["synniaasta"])) {
+                            $synniaasta = (int)$_GET["synniaasta"];
+                            $hetkeAasta = (int)date('Y');
+                            $vanus = $hetkeAasta - $synniaasta;
+                            
+                            echo "<div class='alert alert-info mt-3'>";
+                            echo "Selle aasta seisuga oled $vanus aastat vana";
+                            echo "</div>";
+                        }
+                        ?>
+                    </div>
+                </div>
 
-                if ($aasta >= 3 && $aasta <= 5) {
-                    echo '<img src="img/kevad.jpg" alt="kevad">';
-
-                } else if ($aasta >= 6 && $aasta <= 8) {
-                    echo '<img src="img/suvi.jpg" alt="suvi">';
-
-                } else if ($aasta >= 9 && $aasta <= 11) {
-                    echo '<img src="img/sugis.jpg" alt="sugis">';
-
-                } else {
-                    echo '<img src="img/talv.jpg" alt="talv">';
-                    
-                }
-
-                ?>
-
-
-
+                <div class="card shadow-sm">
+                    <div class="card-header bg-light">
+                        <h3 class="h5 mb-0">Kooliaja lõpp</h3>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                        $loppkuupaev = new DateTime("2025-06-14");
+                        $tanane = new DateTime();
+                        $vahe = $tanane->diff($loppkuupaev);
+                        $paevad = $vahe->days;
+                        
+                        echo "<p class='fs-5'>Kooliaasta lõpuni on jäänud:";
+                        echo "<br><span class='badge bg-warning text-dark fs-4'>$paevad päeva</span></p>";
+                        ?>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-light">
+                        <h3 class="h5 mb-0">Aastaajad</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <?php
+                        $kuu = (int)date('m');
+                        $ajad = [
+                            'kevad' => [3, 4, 5],
+                            'suvi' => [6, 7, 8],
+                            'sügis' => [9, 10, 11],
+                            'talv' => [12, 1, 2]
+                        ];
+                        
+                        $aastaaeg = '';
+                        foreach ($ajad as $aeg => $kuud) {
+                            if (in_array($kuu, $kuud)) {
+                                $aastaaeg = $aeg;
+                                break;
+                            }
+                        }
+                        
+                        echo "<h4 class='mb-3'>Praegu on " . ucfirst($aastaaeg) . "</h4>";
+                        echo "<img src='img/$aastaaeg.jpg' alt='$aastaaeg' class='season-img'>";
+                        ?>
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

@@ -6,7 +6,7 @@ Harjutus 1-3 -->
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Harjutus1-3</title>
+        <title>php1-3</title>
         <meta name="keywords" content="HTML,CSS,HTML5,CSS3">
         <meta name="author" content="Kaspar Plaas IT-23">
     </head>

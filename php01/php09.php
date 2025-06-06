@@ -1,123 +1,143 @@
- <!-- Tehvan Marjapuu 
-Harjutus 9 -->
-
-
-<!doctype html>
+<!-- Tehvan Marjapuu Harjutus 9-->
+<!DOCTYPE html>
 <html lang="et">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Harjutus 9</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tekstitöötlus</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .task-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            background-color: #f8f9fa;
+        }
+        .task-header {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .result-box {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            min-height: 50px;
+        }
+    </style>
+</head>
 <body>
-    <div class="container">
-        <h1>Harjutus 09</h1>
+    <div class="container py-4">
+        <header class="text-center mb-5">
+            <h1 class="display-5">teksti harjutused</h1>
+            <p class="lead">harjutus 9</p>
+        </header>
+        
         <div class="row">
-            <div class="col-md-4">
-
-            <h2>Kasutaja tervitus</h2>
-
-                <form action="" method="get">
-                    <div class="mb-3">
-                        <label class="form-label">Sisesta oma nimi!</label>
-                        <input type="text" class="form-control" name="kasutaja">
+            <div class="col-lg-8 mx-auto">
+                <section class="task-card">
+                    <div class="task-header">
+                        <h3 class="h4">tervitus</h3>
                     </div>
-                    <button type="submit" class="btn btn-primary">Saada</button>
-                </form>  
+                    <form method="get" class="mb-3">
+                        <div class="mb-3">
+                            <label class="form-label">Sisesta oma nimi</label>
+                            <input type="text" class="form-control" name="nimi" placeholder="Sinu nimi...">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Tervita mind</button>
+                    </form>
+                    
+                    <?php if (isset($_GET["nimi"])): ?>
+                        <div class="result-box">
+                            <?php
+                            $nimi = htmlspecialchars($_GET["nimi"]);
+                            $nimi = ucfirst(strtolower(trim($nimi)));
+                            echo "Tere tulemast, <strong>$nimi</strong>!";
+                            ?>
+                        </div>
+                    <?php endif; ?>
+                </section>
 
-
-                <?php
-
-                if (isset($_GET["kasutaja"])) {
-                    $kasutaja = $_GET["kasutaja"];
-                    $kasutaja = ucfirst(strtolower($kasutaja));
-                    echo "Tere, $kasutaja!";
-                }
-
-                ?>
-
-
-                <br>
-
-                <h2>Teksti tükeldamine</h2>
-
-                <form action="" method="get">
-                    <div class="mb-3">
-                        <label class="form-label">Sisesta oma nimi!</label>
-                        <input type="text" class="form-control" name="sisend">
+                <section class="task-card">
+                    <div class="task-header">
+                        <h3 class="h4">Tähtede eraldamine</h3>
                     </div>
-                    <button type="submit" class="btn btn-primary">Saada</button>
-                </form>  
+                    <form method="get" class="mb-3">
+                        <div class="mb-3">
+                            <label class="form-label">Sisesta tekst</label>
+                            <input type="text" class="form-control" name="tekst" placeholder="Sisesta midagi huvitavat...">
+                        </div>
+                        <button type="submit" class="btn btn-info">Eralda tähed</button>
+                    </form>
+                    
+                    <?php if (isset($_GET["tekst"])): ?>
+                        <div class="result-box">
+                            <?php
+                            $tekst = htmlspecialchars($_GET["tekst"]);
+                            $tähed = str_split(strtoupper(trim($tekst)));
+                            echo implode('.', $tähed);
+                            ?>
+                        </div>
+                    <?php endif; ?>
+                </section>
 
-                <?php
-
-                if (isset($_GET["sisend"])) {
-                    $sisend = $_GET["sisend"];
-                    $sisend = strtoupper($sisend);
-                    $sisend = str_split($sisend);
-                    $sisend = implode(".", $sisend);
-                    echo $sisend;
-                }
-
-                ?>
-
-                <br>
-
-                <h2>Ropud sõnad</h2>
-
-                <form action="" method="get">
-                    <div class="mb-3">
-                        <label class="form-label">Sisesta oma nimi!</label>
-                        <input type="text" class="form-control" name="parandus">
+                <section class="task-card">
+                    <div class="task-header">
+                        <h3 class="h4">Sõnade puhastamine</h3>
+                        <p class="text-muted small">Filtreerib välja sobimatud sõnad</p>
                     </div>
-                    <button type="submit" class="btn btn-primary">Saada</button>
-                </form> 
+                    <form method="get" class="mb-3">
+                        <div class="mb-3">
+                            <label class="form-label">Sisesta lause</label>
+                            <input type="text" class="form-control" name="lause" placeholder="Kirjuta oma sõnum...">
+                        </div>
+                        <button type="submit" class="btn btn-warning">Puhasta tekst</button>
+                    </form>
+                    
+                    <?php if (isset($_GET["lause"])): ?>
+                        <div class="result-box">
+                            <?php
+                            $lause = htmlspecialchars($_GET["lause"]);
+                            $must_list = ["kaka", "pepu", "peerukott"];
+                            $puhas = str_ireplace($must_list, "***", $lause);
+                            echo $puhas;
+                            ?>
+                        </div>
+                    <?php endif; ?>
+                </section>
 
-                <?php
-                
-                echo "noob, loll ja jobu";
-
-                if (isset($_GET["parandus"])) {
-                    $parandus = $_GET["parandus"];
-                    $parandus = str_replace(array("kaka", "pepu", "lollakas"), "***", $parandus);
-                    echo $parandus;
-                }
-
-                ?>
-
-                <br>
-
-                <h2>Täpitähed ja email</h2>
-
-                <form action="" method="get">
-                    <div class="mb-3">
-                        <label class="form-label">Sisesta oma nimi!</label>
-                        <input type="text" class="form-control" name="nimi">
+                <section class="task-card">
+                    <div class="task-header">
+                        <h3 class="h4">eposti aadressi genereerimine</h3>
                     </div>
-                    <button type="submit" class="btn btn-primary">Saada</button>
-                </form>
-
-                <?php
-
-                if (isset($_GET["nimi"])) {
-                    $nimi = $_GET["nimi"];
-                    $nimi = strtolower($nimi);
-                    $nimi = str_replace(array("ä", "ö", "ü", "õ"), array("a", "o", "y", "o"), $nimi);
-                    $email = "$nimi@hkhk.edu.ee";
-                    echo $email;
-                }
-
-                ?>
-
-
-
+                    <form method="get" class="mb-3">
+                        <div class="mb-3">
+                            <label class="form-label">Sisesta oma nimi</label>
+                            <input type="text" class="form-control" name="nimi_email" placeholder="Ees- ja perenimi">
+                        </div>
+                        <button type="submit" class="btn btn-success">Loo meil</button>
+                    </form>
+                    
+                    <?php if (isset($_GET["nimi_email"])): ?>
+                        <div class="result-box">
+                            <?php
+                            $nimi = htmlspecialchars($_GET["nimi_email"]);
+                            $puhastatud = strtolower(trim($nimi));
+                            $asendused = ['ä' => 'a', 'ö' => 'o', 'ü' => 'y', 'õ' => 'o', 'š' => 's', 'ž' => 'z'];
+                            $puhastatud = strtr($puhatatud, $asendused);
+                            $email = $puhastatud . "@hkhk.edu.ee";
+                            echo "Sinu e-posti aadress: <strong>$email</strong>";
+                            ?>
+                        </div>
+                    <?php endif; ?>
+                </section>
             </div>
         </div>
-
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
