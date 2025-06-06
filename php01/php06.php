@@ -99,7 +99,7 @@ Harjutus 6 -->
 
                 $naised = array('Mario', 'Rain', 'väike altmäe');
 
-                $mehed = array('MINA', 'OLEN', 'maksi seksikam');
+                $mehed = array('tõnu', 'mustu', 'maksi seksikam');
 
                 for($kogus=0; $kogus<count($naised); $kogus++){
                     echo $naised[$kogus].' - '.$mehed[$kogus].'<br>';

@@ -6,7 +6,7 @@ Harjutus 12 -->
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>PHP Harjutused</title>
+        <title>Harjutus 11</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     </head>
@@ -18,56 +18,56 @@ Harjutus 12 -->
 
                 <h2>Sõiduaeg</h2>
 
-                <form action="" method="get">
-                    <div class="mb-3">
-                        <label class="form-label">Sisesta oma nimi!</label>
-                        <input type="text" class="form-control" name="kasutaja">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Sõidu alustus aeg: [hh:mm]</label>
-                        <input type="text" class="form-control" name="algus">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Sõidu lõpetamise aeg: [hh:mm]</label>
-                        <input type="text" class="form-control" name="lopp">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Saada</button>
-                </form> 
+                    Lisa alguse aeg <input type="time" name="algus"><br>
+                Lisa lõpu aeg <input type="time" name="lopp"><br>
+               
+             <input type="submit" value="Arvuta">
 
-
+            </form>
                 <?php
+                  
+                if (isset($_GET['algus']) && isset($_GET['lopp'])) {
+                    $algus_aeg = $_GET['algus'];
+                    $lopp_aeg = $_GET['lopp'];
+                    if (empty($algus_aeg) || empty($lopp_aeg)) {
+                        echo "palun korralikult ära täita";
+                    } else {
 
-                if (isset($_GET["kasutaja"]) && isset($_GET["algus"]) && isset($_GET["lopp"])) {
-                    $kasutaja = $_GET["kasutaja"];
-                    $algus = $_GET["algus"];
-                    $lopp = $_GET["lopp"];
-                    $algus = explode(":", $algus);
-                    $lopp = explode(":", $lopp);
-                    $algus = $algus[0] * 60 + $algus[1];
-                    $lopp = $lopp[0] * 60 + $lopp[1];
-                    $soiduaeg = $lopp - $algus;
-                    $tunnid = floor($soiduaeg / 60);
-                    $minutid = $soiduaeg % 60;
-                    echo "Tere, $kasutaja! Teie sõiduaeg on $tunnid tundi ja $minutid minutit.";
+                        $start = DateTime::createFromFormat('H:i', $algus_aeg);
+                        $lopp = DateTime::createFromFormat('H:i', $lopp_aeg);
+                
+                        if ($start && $lopp) {
+                            if ($lopp < $start) {
+                                $lopp->add(new DateInterval('P1D'));
+                            }
+                            $erinevus = $start->diff($lopp);
+                            echo "Sõiduks kulub " . $erinevus->h . " tundi ja " . $erinevus->i . " minutit.";
+                        } else {
+                            echo "pane õigesti hh:mm.";
+                        }
+                    }
+                } else {
+                    echo "Sisesta algus ja lõpu aeg";
                 }
 
                 ?>
 
-
-
-                <h2>Palkade võrdlus</h2>
+                <h3>Palkade võrdlus</h3>
 
                 <?php
 
-                $allikas = 'csv/tootajad.csv';
+                $allikas = 'tootajad.csv';
 
                 $fail = fopen($allikas, 'r');
 
+
+                $mehed = 0;
+                $naised = 0;   
+
                 $meeste_palk = 0;
                 $naiste_palk = 0;
-                $meeste_arv = 0;
-                $naiste_arv = 0;
-                $meeste_max = 0;
+
+                $meeste_max = 0
                 $naiste_max = 0;
 
                 while (($rida = fgetcsv($fail, 1000, ';')) !== false) {
@@ -81,13 +81,14 @@ Harjutus 12 -->
 
                     if ($sugu === 'm') {
                         $meeste_palk += $palk;
-                        $meeste_arv++;
+                        $mehed++;
                         if ($palk > $meeste_max) {
                             $meeste_max = $palk;
                         }
+
                     } elseif ($sugu === 'n') {
                         $naiste_palk += $palk;
-                        $naiste_arv++;
+                        $naied++;
                         if ($palk > $naiste_max) {
                             $naiste_max = $palk;
                         }
@@ -96,11 +97,11 @@ Harjutus 12 -->
 
                 fclose($fail);
 
-                $meeste_keskmine = ($meeste_arv > 0) ? ($meeste_palk / $meeste_arv) : 0;
-                $naiste_keskmine = ($naiste_arv > 0) ? ($naiste_palk / $naiste_arv) : 0;
+                $meeste_kesk = ($mehed > 0) ? ($meeste_palk / $mehed) : 0;
+                $naiste_kesk = ($naised > 0) ? ($naiste_palk / $naised) : 0;
 
-                echo "Meeste keskmine palk on " . number_format($meeste_keskmine, 2) . " ja kõige suurem palk on " . number_format($meeste_max, 2) . ".<br>";
-                echo "Naiste keskmine palk on " . number_format($naiste_keskmine, 2) . " ja kõige suurem palk on " . number_format($naiste_max, 2) . ".";
+                echo "Meeste keskmine palk on " . number_format($meeste_kesk, 2) . " ja kõige suurem palk on " . number_format($meeste_max, 2) . ".<br>";
+                echo "Naiste keskmine palk on " . number_format($naiste_kesk, 2) . " ja kõige suurem palk on " . number_format($naiste_max, 2) . ".";
 
                 ?>
 

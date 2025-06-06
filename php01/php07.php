@@ -18,21 +18,17 @@ Harjutus 7 -->
                 <?php
 
 
-
-                    echo "<h2>Tervitus</h2>";
-
-                    function tervita(){
-                        return "Tere päiksekesekene!";	
-                    }
-                    echo tervita();
-
-                    echo "<br>";
+                function tervitus(){
+                    echo "Tere päiksekesekene!";
+                }
+                Tervitus();
+                echo "<br><br>";
 
 
 
 
                     echo "<br>";
-                    echo "<h2>Liitu uudiskirjaga</h2>";
+                    echo "<h2>Liitu uudisega</h2>";
 
                     function uudiskiri(){
                         return '<form action="" method="post">
@@ -52,7 +48,7 @@ Harjutus 7 -->
 
 
 
-                    <h2>Kasutajanimi ja email</h2>
+                    <h2>Kasutaja ja  email</h2>
 
                     <form action="" method="get">
                         <div class="mb-3">
@@ -85,17 +81,22 @@ Harjutus 7 -->
 
                 <form action="" method="get">
                     <div class="mb-3">
-                        <label class="form-label">Sisesta esimene arv</label>
-                        <input type="number" class="form-control" name="arv1">
+                        <label class="form-label">esimene arv</label>
+                        <input type="number" class="form-control" name="arvees">
                     </div>
+
+
                     <div class="mb-3">
-                        <label class="form-label
-                        ">Sisesta viimane arv</label>
-                        <input type="number" class="form-control" name="arv2">
+                        <label class="form-label"
+                            >viimne arv</label>
+                        <input type="number" class="form-control" name="arvtaga">
                     </div>
+
+
+
                     <div class="mb-3">
-                        <label class="form-label">Sammupikkus</label>
-                        <input type="number" class="form-control" name="samm">
+                        <label class="form-label">pikkus</label>
+                        <input type="number" class="form-control" name="pikk">
                     </div>
                     <button type="submit" class="btn btn-primary">Saada</button>
                 </form>
@@ -103,19 +104,20 @@ Harjutus 7 -->
 
                 <?php
                     
-                    function arvud($arv1, $arv2, $samm) {
-                        for ($arv = $arv1; $arv <= $arv2; $arv += $samm) {
-                            echo "$arv";
+                    function arvud($arvees, $arvtaga, $pikk) {
+
+                        for ($arv = $arvees; $arv <= $arvtaga; $arv += $pikk) {
+                             echo "$arv";
                             echo ", ";
                         }
                     }
                     
-                    if (isset($_GET['arv1'], $_GET['arv2'], $_GET['samm'])) {
-                        $arv1 = $_GET['arv1'];
-                        $arv2 = $_GET['arv2'];
-                        $samm = $_GET['samm'];
+                    if (isset($_GET['arvees'], $_GET['arvtaga'], $_GET['pikk'])) {
+                                 $arvees = $_GET['arvees'];
+                            $arvtaga = $_GET['arvtaga'];
+                        $pikk = $_GET['pikk'];
                     
-                        arvud($arv1, $arv2, $samm);
+                        arvud($arvees, $arvtaga, $pikk);
 
                     }
                     echo '<br>';
@@ -128,11 +130,12 @@ Harjutus 7 -->
 
                 <form action="" method="get">
                     <div class="mb-3">
-                        <label class="form-label">Sisesta külg A</label>
+                        <label class="form-label">kylg A</label>
                         <input type="number" class="form-control" name="a">
                     </div>
+
                     <div class="mb-3">
-                        <label class="form-label">Sisesta külg B</label>
+                        <label class="form-label">kylg B</label>
                         <input type="number" class="form-control" name="b">
                     </div>
                     <button type="submit" class="btn btn-primary">Saada</button>
@@ -171,15 +174,17 @@ Harjutus 7 -->
                         if(strlen($isikukood) == 11){
                             $sugu = substr($isikukood, 0, 1);
                             if($sugu % 2 == 0){
-                                $sugu = "Naine";
+                                $sugu = "naine";
                             }else{
-                                $sugu = "Mees";
+                                $sugu = "mees";
                             }
+
                             $sunniaeg = substr($isikukood, 1, 2) . "." . substr($isikukood, 3, 2) . "." . substr($isikukood, 5, 2);
-                            return "Sugu: $sugu <br> Sünniaeg: $sunniaeg";
+                            return "sugu: $sugu <br> Sünniaeg: $sunniaeg";
                         }else{
-                            return "Isikukood on vale pikkusega";
+                            return "Isikukood on vale ";
                         }
+
                     }
                     if(isset($_GET['isikukood'])){
                         echo isikukood($_GET['isikukood']);
@@ -194,13 +199,13 @@ Harjutus 7 -->
                 
                 <?php
                 function motted(){
-                    $alus = array("Täna", "Homme", "Ülehomme", "Eile", "Üleeile");
-                    $oeldis = array("on", "ei taha", "ei saa olema", "ei saa olla", "ei saa olema");
-                    $sihitis = array("päikest", "vihma", "lund", "raha", "õnne");
-                    $sona1 = $alus[array_rand($alus)];
-                    $sona2 = $oeldis[array_rand($oeldis)];
-                    $sona3 = $sihitis[array_rand($sihitis)];
-                    return "$sona1 $sona2 $sona3";
+                    $alus = array("audi", "mario", "roomet", "emme", "koolilaps");
+                    $oeldis = array("on", "vb tahab", "ei ole olema", "ei kannata",);
+                    $sihitis = array("päikest", "mehi", "raha", "naisi");
+                    $sonaa = $alus[array_rand($alus)];
+                    $sonab = $oeldis[array_rand($oeldis)];
+                    $sonac = $sihitis[array_rand($sihitis)];
+                    return "$sonaa $sonab $sonac";
                 }
                 echo motted();
 

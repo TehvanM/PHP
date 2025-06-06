@@ -13,36 +13,46 @@ Harjutus 5 -->
     <div class="container">
         <h1>Ülesanne 5</h1>
         <?php
-            echo "<h1>Nimed:</h1>";
-            $nimed = array('mari', 'kati', 'juhan', 'miku', 'uku');
-            sort($nimed);
-            // print_r($nimed)
+
+            echo "<h1>naised:</h1>";
+            $naised = array('mari', 'kati', 'juhan', 'miku', 'uku');
+            sort($naised);
             $counter = 0;
-            foreach($nimed as $nimi){
-                echo "$nimi <br>";
+
+            foreach($naised as $naine){
+                echo "$naine <br>";
+
+
             }
-            echo "<h2>3 nime:</h2>";
-            foreach($nimed as $nimi){
+            echo "<h2>3 esimesed naised:</h2>";
+            foreach($naised as $naine){
                 $counter++;
+
                 if($counter>3){
                     break;
                 }else{
-                    echo "$nimi <br>";
+                    echo "$naine <br>";
+                
                 }   
             }
             
-            echo "<h2>Viimane nimi:</h2>";
-            echo end($nimed);
-            echo "<h2>Suvaline nimi:</h2>";
-            echo $nimed[array_rand($nimed)];
+            echo "<h2>viimne naine:</h2>";
+            echo end($naised);
+            echo "<h2>Suvaline naine:</h2>";
+            echo $naised[array_rand($naised)];
+
+
             echo "<h1>Autod:</h1>";
-            $autod = array ("Subaru","BMW","Acura","Mercedes-Benz","Lexus","GMC","Volvo","Toyota","Volkswagen","Volkswagen","GMC","Jeep","Saab","Hyundai","Subaru","Mercedes-Benz",
+
+
+
+            $auto = array ("Subaru","BMW","Acura","Mercedes-Benz","Lexus","GMC","Volvo","Toyota","Volkswagen","Volkswagen","GMC","Jeep","Saab","Hyundai","Subaru","Mercedes-Benz",
             "Honda","Kia","Mercedes-Benz","Chevrolet","Chevrolet","Porsche","Buick","Dodge","GMC","Dodge","Nissan","Dodge","Jaguar","Ford","Honda","Toyota","Jeep",
             "Kia","Buick","Chevrolet","Subaru","Chevrolet","Chevrolet","Pontiac","Maybach","Chevrolet","Plymouth","Dodge","Nissan","Porsche","Nissan","Mercedes-Benz",
             "Suzuki","Nissan","Ford","Acura","Volkswagen","Lincoln","Mazda","BMW","Mercury","Mitsubishi","Ram","Audi","Kia","Pontiac","Toyota","Acura","Toyota","Toyota",
             "Chevrolet","Oldsmobile","Acura","Pontiac","Lexus","Chevrolet","Cadillac","GMC","Jeep","Audi","Acura","Acura","Honda","Dodge","Hummer","Chevrolet","BMW",
             "Honda","Lincoln","Hummer","Acura","Buick","BMW","Chevrolet","Cadillac","BMW","Pontiac","Audi","Hummer","Suzuki","Mitsubishi","Jeep","Buick","Ford");
-            $vins = array ("1GKS1GKC8FR966658", "1FTEW1C87AK375821", "1G4GF5E30DF760067", "1FTEW1CW9AF114701", "WAUGGAFC8CN433989", "3G5DA03E83S704506", "4JGDA2EB0DA207570", 
+            $vinid = array ("1GKS1GKC8FR966658", "1FTEW1C87AK375821", "1G4GF5E30DF760067", "1FTEW1CW9AF114701", "WAUGGAFC8CN433989", "3G5DA03E83S704506", "4JGDA2EB0DA207570", 
             "1FTEW1E88AK070552", "SAJWA0F77F8732763", "JHMFA3F21BS660717", "JTHBP5C29C5750730", "WA1LFAFP9DA963060", "3D7TT2CT6BG521976", "WVWN7EE961049", 
             "2C3CA5CG3BH341234", "YV4952CFXC162587", "KNALN4D71F5805172", "JN1CV6EK7BM903692", "5FRYD3H84EB186765", "WAUL64B83N441878", "WDDGF4HBXCF845665", 
             "WAUKF78E45A133973", "JN1BY0AR2AM022612", "WA1EY74L69D931520", "3GYFNGEYXBS290465", "1D7CW2GK4AS059336", "JN8AZ1FY5EW087447", "WAUBF78E57A343355", 
@@ -58,36 +68,35 @@ Harjutus 5 -->
             "1N6AA0CJ1D57470", "WAUEG98E76A780908", "WAUAF78E96A920706", "1GT01XEG8FZ268942", "1FTEW1CW4AF371278", "JN1AZ4EH8DM531691", "WAUEKAFBXAN294295", 
             "1N6AA0EDXFN868772", "WBADW3C59DJ422810");
             echo "<h2>Autode arv:</h2>";
-            echo count($autod);
+            echo count($auto);
             echo "<h2>Massiivide kontroll:</h2>";
-            if(count($autod) == count($vins)){
-                echo "Klapib";
+            if(count($auto) == count($vinid)){
+                echo "Timmis";
             }else{
-                echo "Ei klapi";
+                echo "suht kypse";
             }
-            echo "<h2>Toyotate ja Audide arv:</h2>";
-            $toyotad = 0;
-            $audid = 0;
-            foreach($autod as $auto){
 
-                if($auto == "Toyota"){
-                    $toyotad++;
+
+                echo "<h3>Audid ja Toyotad</h3><br>";
+                $auditoyota = array();
+                for ($i = 0; $i < count($auto); $i++){
+                    if ($auto[$i] == "Audi" || $auto[$i] == "Toyota"){
+                        array_push($auditoyota, $auto[$i]);
+                    }
                 }
-                if($auto == "Audi"){
-                    $audid++;
+                print_r($auditoyota);
+                echo "<br><br>";
+
+                echo "<h3>vinid mille märkide arv on alla 17</h3><br>";
+                for ($i = 0; $i < count($vinid); $i++){
+                    if (strlen($vinid[$i]) < 17){
+                        echo $vinid[$i]."<br>";
+                    }
                 }
-            }
-            echo "<br>Toyotasi kokku: $toyotad";
-            echo "<br>audisid kokku: $audid";
-            echo "<h2>Vin koodid:</h2>";
-            $vin_kokku = 0;
-            foreach($vins as $vin){
-                if(strlen($vin)<17){
-                    $vin_kokku++;
-                }
-            }
-            echo "<br>Valed Vin kokku: $vin_kokku";
-            echo "<h1>Palgad:</h1>";
+                echo "<br><br>";
+
+
+            echo "<h1>Palk:</h1>";
             $palgad = array (1220,1213,1295,1312,1298,1354,1296,1286,1292,1327,1369,1455);
             $keskmine = array_sum($palgad) / count($palgad);
             echo "2018 keskmine palk: $keskmine";
